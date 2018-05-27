@@ -34,7 +34,7 @@ class TextComponent extends Component {
     render() {
       return (
         <p style={{color: this.state.color}} onClick={this.switchColor}>
-            Hello World!
+            {this.props.text}
         </p>
       );
     }

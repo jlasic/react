@@ -4,16 +4,26 @@ import './App.css';
 import TextComponent from './TextComponent';
 
 class App extends Component {
+  constructor(props){
+    super(props);
+    this.state = {text: 'Type something!'};
+    this.handleTextChange = this.handleTextChange.bind(this);
+  }
+
+  handleTextChange(e){
+    this.setState({
+      text: e.target.value
+    });
+  }
+
   render() {
     return (
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <TextComponent/>
+          <TextComponent text={this.state.text}/>
         </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <input type="text" onChange={this.handleTextChange}/>
       </div>
     );
   }
