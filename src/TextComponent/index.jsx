@@ -18,15 +18,15 @@ class TextComponent extends Component {
         })
         .then(function(json){
             self.randomColor = '#' + json.colors[0].hex;
-            self.setState({
-                toggle: true
-            });
+            self.setState(prevState => ({
+                color: prevState.toggle ? self.randomColor : self.defaultColor
+            }));
         });
     }
 
     switchColor(){
         this.setState(prevState => ({
-            color: prevState.toggle ? this.randomColor : this.defaultColor,
+            color: !prevState.toggle ? this.randomColor : this.defaultColor,
             toggle: !prevState.toggle
         }));
     }
