@@ -3,11 +3,13 @@ import React, { Component } from 'react';
 class TextComponent extends Component {
     constructor(props){
         super(props);
-        this.defaultColor = '000000';
+        this.defaultColor = '#ffffff';
         this.randomColor = '';
         this.state = {
+            color: this.defaultColor,
             toggle: false
         };
+        this.switchColor = this.switchColor.bind(this);
 
         const self = this;
         fetch('http://www.colr.org/json/color/random')
@@ -15,16 +17,24 @@ class TextComponent extends Component {
             return response.json();
         })
         .then(function(json){
-            self.randomColor = json.colors[0].hex;
+            self.randomColor = '#' + json.colors[0].hex;
             self.setState({
                 toggle: true
             });
         });
     }
+
+    switchColor(){
+        this.setState(prevState => ({
+            color: prevState.toggle ? this.randomColor : this.defaultColor,
+            toggle: !prevState.toggle
+        }));
+    }
+
     render() {
       return (
-        <p >
-            {this.randomColor}
+        <p style={{color: this.state.color}} onClick={this.switchColor}>
+            Hello World!
         </p>
       );
     }
