@@ -11,15 +11,12 @@ class TextComponent extends Component {
         };
         this.switchColor = this.switchColor.bind(this);
 
-        const self = this;
         fetch('http://www.colr.org/json/color/random')
-        .then(function(response){
-            return response.json();
-        })
-        .then(function(json){
-            self.randomColor = '#' + json.colors[0].hex;
-            self.setState(prevState => ({
-                color: prevState.toggle ? self.randomColor : self.defaultColor
+        .then(response => response.json())
+        .then(json => {
+            this.randomColor = '#' + json.colors[0].hex;
+            this.setState(prevState => ({
+                color: prevState.toggle ? this.randomColor : this.defaultColor
             }));
         });
     }
